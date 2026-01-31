@@ -28,7 +28,7 @@ function lovr.load()
 
     -- Calculate ambient light color.
     local ar, ag, ab = lovr.math.gammaToLinear(0.1, 0.3, 0.5)
-    ambient = lovr.math.newVec4(ar, ag, ab, 1)
+    ambient = vector(ar, ag, ab)
 
     -- BaseShading requires 8 lights.
     for _ = 1, 8 do
@@ -41,9 +41,9 @@ function lovr.load()
     local directional = lights[1]
     local dr, dg, db = lovr.math.gammaToLinear(1.0, 0.9, 0.8)
     directional.mode = BaseShading.LightMode.kVertex
-    directional.position:set(-1, 1, 1, 0)
+    directional.position = vector(-1, 1, 1)
     directional.position:normalize()
-    directional.diffuse:set(dr, dg, db, 1.0)
+    directional.diffuse = vector(dr, dg, db)
 
     -- The second light will be a spotlight. It'll also be the light we use for
     -- shadows. The shadow casting light must be a fragment light. To configure
@@ -53,12 +53,12 @@ function lovr.load()
     -- rendering.
     spotlight = lights[2]
     spotlight.mode = BaseShading.LightMode.kFragment
-    spotlight.position:set(2, 2.5, 0, 1)
-    spotlight.spotDirection:set(-0.75, -0.75, -1)
+    spotlight.position = vector(2, 2.5, 0)
+    spotlight.spotDirection = vector(-0.75, -0.75, -1)
     spotlight.spotDirection:normalize()
     spotlight.spotCutoff = 20
-    spotlight.diffuse:set(1, 1, 1, 1)
-    spotlight.specular:set(1, 1, 1, 1)
+    spotlight.diffuse = vector(1, 1, 1)
+    spotlight.specular = vector(1, 1, 1)
 
     -- Configure the shadow to use our spotlight.
     shadow = BaseShading.newShadow {
@@ -67,7 +67,7 @@ function lovr.load()
 
     -- Create a material that has some specularity.
     material = BaseShading.newMaterial {
-        specular = lovr.math.newVec4(1, 1, 1, 1),
+        specular = vector(1, 1, 1),
         shininess = 32
     }
 
@@ -75,7 +75,7 @@ function lovr.load()
     local fr, fg, fb = lovr.math.gammaToLinear(0.1, 0.15, 0.2)
     fog = BaseShading.newFog {
         mode = BaseShading.FogMode.kLinear,
-        color = lovr.math.newVec4(fr, fg, fb, 1),
+        color = vector(fr, fg, fb),
         linearStart = 2,
         linearEnd = 7
     }
@@ -102,7 +102,7 @@ function lovr.draw(pass)
     -- Prepare the shadow map projection parameters. Note that this is set on
     -- the base shading instance, independently of the surface shader.
     base:sendSpotlightShadow(
-        spotlight.position["xyz"],
+        spotlight.position,
         spotlight.spotDirection,
         spotlight.spotCutoff,
         0.1,

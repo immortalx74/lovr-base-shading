@@ -136,11 +136,11 @@ function BaseShading.newLight(props)
         quadraticAttenuation = props.quadraticAttenuation or 0,
         spotCutoff = props.spotCutoff or 180,
         spotExponent = props.spotExponent or 0,
-        spotDirection = props.spotDirection or lovr.math.newVec3(0, 0, -1),
-        position = props.position or lovr.math.newVec4(0, 0, 1, 0),
-        ambient = props.ambient or lovr.math.newVec4(0, 0, 0, 1),
-        diffuse = props.diffuse or lovr.math.newVec4(0, 0, 0, 1),
-        specular = props.specular or lovr.math.newVec4(0, 0, 0, 1),
+        spotDirection = props.spotDirection or vector(0, 0, -1),
+        position = props.position or vector(0, 0, 1),
+        ambient = props.ambient or vector(0, 0, 0),
+        diffuse = props.diffuse or vector(0, 0, 0),
+        specular = props.specular or vector(0, 0, 0),
     }
 end
 
@@ -161,10 +161,10 @@ function BaseShading.newMaterial(props)
     props = props or {}
 
     return {
-        ambient = props.ambient or lovr.math.newVec4(0.2, 0.2, 0.2, 1),
-        diffuse = props.diffuse or lovr.math.newVec4(0.8, 0.8, 0.8, 1),
-        emissive = props.emissive or lovr.math.newVec4(0, 0, 0, 1),
-        specular = props.specular or lovr.math.newVec4(0, 0, 0, 1),
+        ambient = props.ambient or vector(0.2, 0.2, 0.2),
+        diffuse = props.diffuse or vector(0.8, 0.8, 0.8),
+        emissive = props.emissive or vector(0, 0, 0),
+        specular = props.specular or vector(0, 0, 0),
         shininess = props.shininess or 0,
     }
 end
@@ -189,7 +189,7 @@ function BaseShading.newFog(props)
     return {
         mode = props.mode or BaseShading.FogMode.kInactive,
         type = props.type or BaseShading.FogType.kVertex,
-        color = props.color or lovr.math.newVec4(0, 0, 0, 1),
+        color = props.color or vector(0, 0, 0),
         expDensity = props.expDensity or 1,
         linearStart = props.linearStart or 0,
         linearEnd = props.linearEnd or 1,
@@ -229,9 +229,9 @@ end
 ---
 --- @type BaseMaterial
 BaseShading.unlitMaterial = BaseShading.newMaterial {
-    ambient = lovr.math.newVec4(0, 0, 0, 1),
-    diffuse = lovr.math.newVec4(0, 0, 0, 1),
-    emissive = lovr.math.newVec4(1, 1, 1, 1),
+    ambient = vector(0, 0, 0),
+    diffuse = vector(0, 0, 0),
+    emissive = vector(1, 1, 1),
 }
 
 --- A default fog configuration that disables fog.

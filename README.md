@@ -1,5 +1,6 @@
 # lovr-base-shading
 A simple Phong and fog shading model for LÖVR.
+[NOTE: This fork makes changes so that this project works with LÖVR's upcoming new Vectors]
 
 > [!WARNING]
 > Prior to v1.0.0, there are no backwards compatibility commitments. Expect
