@@ -32,7 +32,9 @@ function lovr.load()
 
     -- BaseShading requires 8 lights.
     for _ = 1, 8 do
-        table.insert(lights, BaseShading.newLight())
+		local light = BaseShading.newLight()
+		light.position.w = 0.0
+        table.insert(lights, light)
     end
 
     -- We'll use the first light as a directional light. Note the use of the
@@ -42,6 +44,7 @@ function lovr.load()
     local dr, dg, db = lovr.math.gammaToLinear(1.0, 0.9, 0.8)
     directional.mode = BaseShading.LightMode.kVertex
     directional.position = vector(-1, 1, 1)
+	directional.position.w = 0.0
     directional.position:normalize()
     directional.diffuse = vector(dr, dg, db)
 
@@ -54,6 +57,7 @@ function lovr.load()
     spotlight = lights[2]
     spotlight.mode = BaseShading.LightMode.kFragment
     spotlight.position = vector(2, 2.5, 0)
+	spotlight.position.w = 1.0
     spotlight.spotDirection = vector(-0.75, -0.75, -1)
     spotlight.spotDirection:normalize()
     spotlight.spotCutoff = 20
